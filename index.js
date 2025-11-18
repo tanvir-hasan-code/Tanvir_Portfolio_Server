@@ -21,7 +21,11 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+	  await client.connect();
+	  const mySkillsCollections = client.db("Tanvir_Portfolio").collection("skills")
+	  const myEducationCollections = client.db("Tanvir_Portfolio").collection("study")
+	  const myProjectsCollections = client.db("Tanvir_Portfolio").collection("projects")
+	  const myContactCollections = client.db("Tanvir_Portfolio").collection("contact")
 
     app.get("/", async (req, res) => {
       res.send(`
@@ -93,7 +97,27 @@ async function run() {
   </div>
 `);
 
-    });
+	});
+	  
+	  app.get("/skills", async (req, res) => {
+		  const result = await mySkillsCollections.find().toArray();
+		  res.send(result)
+	  })
+	  app.get("/education", async (req, res) => {
+		  const result = await myEducationCollections.find().toArray();
+		  res.send(result);
+	  })
+
+	  app.get("/projects", async (req, res) => {
+		  const result = await myProjectsCollections.find().toArray();
+		  res.send(result);
+	  })
+	  app.get("/contact", async (req, res) => {
+		  const result = await myContactCollections.find().toArray();
+		  res.send(result);
+	  })
+	  
+	  
 
     await client.db("admin").command({ ping: 1 });
     console.log(
