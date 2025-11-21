@@ -32,7 +32,7 @@ const transporter = nodemailer.createTransport({
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
     const mySkillsCollections = client
       .db("Tanvir_Portfolio")
       .collection("skills");
@@ -62,16 +62,20 @@ async function run() {
     color: #fff;
     padding: 20px;
   ">
-    <h1 style="
-      font-size: 48px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #f0a, #6e00ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    ">
-      Hello! 👋
-    </h1>
+    <div style="display: flex; align-items: center; gap: 10px;">
+  <h1 style="
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #f0a, #6e00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+  ">
+    Hello!
+  </h1>
+  <span style="font-size: 48px;">👋</span>
+</div>
+
     
     <h2 style="
       font-size: 32px;
@@ -205,10 +209,10 @@ async function run() {
         // console.log("📬 Email sent:", result);
 
         await transporter.sendMail({
-  from: `"Tanvir Hasan Portfolio" <${process.env.EMAIL_USER}>`,
-  to: email,
-  subject: "📬 We Received Your Message!",
-  html: `
+          from: `"Tanvir Hasan Portfolio" <${process.env.EMAIL_USER}>`,
+          to: email,
+          subject: "📬 We Received Your Message!",
+          html: `
   <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; padding: 30px; border-radius: 15px; max-width: 600px; margin: auto; border: 2px solid #6a1b9a;">
     
     <div style="text-align: center; margin-bottom: 25px;">
@@ -250,9 +254,8 @@ async function run() {
     </div>
 
   </div>
-`})
-
-
+`,
+        });
 
         res.send({ success: true, message: "Email sent successfully!" });
       } catch (error) {
@@ -265,10 +268,10 @@ async function run() {
       }
     });
 
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
     // await client.close();
   }
