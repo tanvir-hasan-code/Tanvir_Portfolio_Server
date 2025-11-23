@@ -122,9 +122,22 @@ async function run() {
     });
 
     app.get("/skills", async (req, res) => {
-      const result = await mySkillsCollections.find().toArray();
-      res.send(result);
+      const result = await mySkillsCollections.find({}).toArray();
+
+      const order = [
+        "Frontend Development",
+        "Backend Development",
+        "Database",
+        "Tools & Technology",
+      ];
+
+      const sorted = result.sort(
+        (a, b) => order.indexOf(a.category) - order.indexOf(b.category)
+      );
+
+      res.send(sorted);
     });
+
     app.get("/education", async (req, res) => {
       const result = await myEducationCollections.find().toArray();
       res.send(result);
@@ -132,7 +145,14 @@ async function run() {
 
     app.get("/projects", async (req, res) => {
       const result = await myProjectsCollections.find().toArray();
-      res.send(result);
+
+      const order = ["TechOrbit", "Recipe Hut", "Volunify"];
+
+      const sorted = result.sort(
+        (a, b) => order.indexOf(a.name) - order.indexOf(b.name)
+      );
+
+      res.send(sorted);
     });
     app.get("/contact", async (req, res) => {
       const result = await myContactCollections.find().toArray();
