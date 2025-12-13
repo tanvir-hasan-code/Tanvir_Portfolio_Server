@@ -45,6 +45,9 @@ async function run() {
     const myContactCollections = client
       .db("Tanvir_Portfolio")
       .collection("contact");
+    const myAllProjects = client
+      .db("Tanvir_Portfolio")
+      .collection("allProject");
 
     app.get("/", async (req, res) => {
       res.send(`
@@ -154,6 +157,11 @@ async function run() {
 
       res.send(sorted);
     });
+
+    app.get("/allProject", async (req, res) => {
+      const result = await myAllProjects.find().toArray();
+      res.send(result)
+    })
     app.get("/contact", async (req, res) => {
       const result = await myContactCollections.find().toArray();
       res.send(result);
